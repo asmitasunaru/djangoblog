@@ -1,0 +1,68 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+
+<div style="
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+">
+
+    <h1>Create New Post</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 20px;">
+            <label><strong>Title</strong></label>
+
+            <input
+                type="text"
+                name="title"
+                placeholder="Enter post title"
+                required
+                style="width:100%; padding:14px; margin-top:8px;"
+            >
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label><strong>Content</strong></label>
+
+            <textarea
+                name="content"
+                rows="10"
+                placeholder="Write your post here..."
+                required
+                style="width:100%; padding:14px; margin-top:8px;"
+            ></textarea>
+        </div>
+
+        <div style="margin-bottom: 25px;">
+            <label><strong>Cover Image</strong></label>
+
+            <input
+                type="file"
+                name="cover_image"
+                accept=".jpg,.jpeg,.png,.webp"
+                style="display:block; margin-top:10px;"
+            >
+        </div>
+
+        <button type="submit">
+            Create Post
+        </button>
+
+        <a href="{% url 'post_list' %}">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

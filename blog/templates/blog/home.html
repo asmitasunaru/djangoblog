@@ -1,0 +1,49 @@
+```html
+{% extends "blog/base.html" %}
+
+{% block title %}Nepal Blog{% endblock %}
+
+{% block content %}
+
+<div style="text-align:center; padding:50px 20px; background:#fff0f5; border-radius:20px; margin:20px;">
+    <h1 style="color:#d63384;">Welcome to Nepal Blog 🇳🇵</h1>
+    <p>Discover Nepal's beautiful places, culture, food and stories.</p>
+
+    <a href="{% url 'post_list' %}"
+       style="display:inline-block; padding:12px 25px; background:#d63384; color:white; text-decoration:none; border-radius:25px;">
+        Explore Posts →
+    </a>
+
+    <a href="{% url 'post_create' %}"
+       style="display:inline-block; padding:12px 25px; background:#198754; color:white; text-decoration:none; border-radius:25px; margin-left:10px;">
+        + Create Post
+    </a>
+</div>
+
+<div style="max-width:1100px; margin:30px auto; padding:20px;">
+    <h2 style="color:#d63384;">Explore Nepal</h2>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;">
+
+        <div style="background:white; padding:20px; border-radius:15px; box-shadow:0 4px 12px #ddd;">
+            <h3>🏔️ Beautiful Places</h3>
+            <p>Explore mountains, lakes and amazing places in Nepal.</p>
+        </div>
+
+        <div style="background:white; padding:20px; border-radius:15px; box-shadow:0 4px 12px #ddd;">
+            <h3>🍛 Nepali Food</h3>
+            <p>Discover dal bhat, momo and traditional Nepali food.</p>
+        </div>
+
+        <div style="background:white; padding:20px; border-radius:15px; box-shadow:0 4px 12px #ddd;">
+            <h3>🎎 Culture & Festivals</h3>
+            <p>Learn about Nepali culture, traditions and festivals.</p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+```
+
+```

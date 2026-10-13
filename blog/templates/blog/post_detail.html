@@ -1,0 +1,99 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .detail {
+        max-width: 900px;
+        margin: 50px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    }
+
+    .detail h1 {
+        color: #667eea;
+        margin-bottom: 20px;
+    }
+
+    .content {
+        color: #555;
+        line-height: 1.9;
+        font-size: 17px;
+        margin-bottom: 30px;
+    }
+
+    .button {
+        display: inline-block;
+        padding: 11px 22px;
+        margin-right: 10px;
+        border-radius: 25px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .edit {
+        background: #667eea;
+    }
+
+    .delete {
+        background: #e74c3c;
+    }
+
+    .back {
+        background: #777;
+    }
+
+</style>
+
+
+<div class="detail">
+
+    <h1>
+        {{ post.title }}
+    </h1>
+
+
+    <div class="content">
+
+        {{ post.content|linebreaks }}
+
+    </div>
+
+
+    <!-- Edit -->
+
+    <a
+        href="{% url 'post_edit' post.pk %}"
+        class="button edit"
+    >
+        Edit
+    </a>
+
+
+    <!-- Delete -->
+
+    <a
+        href="{% url 'post_delete' post.pk %}"
+        class="button delete"
+    >
+        Delete
+    </a>
+
+
+    <!-- Back -->
+
+    <a
+        href="{% url 'post_list' %}"
+        class="button back"
+    >
+        Back
+    </a>
+
+</div>
+
+{% endblock %}

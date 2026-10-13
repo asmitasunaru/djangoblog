@@ -1,0 +1,78 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Delete Project{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .delete-box {
+        max-width: 600px;
+        margin: 80px auto;
+        background: white;
+        padding: 40px;
+        text-align: center;
+        border-radius: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    }
+
+    .delete-box h1 {
+        color: #e74c3c;
+    }
+
+    .delete-button {
+        padding: 12px 25px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+    }
+
+    .cancel-button {
+        display: inline-block;
+        padding: 12px 25px;
+        background: #777;
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        margin-left: 10px;
+    }
+
+</style>
+
+
+<div class="delete-box">
+
+    <h1>Delete Project</h1>
+
+    <p>
+        Are you sure you want to delete
+        <strong>{{ post.title }}</strong>?
+    </p>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            class="delete-button"
+        >
+            Yes, Delete
+        </button>
+
+
+        <a
+            href="{% url 'post_detail' post.pk %}"
+            class="cancel-button"
+        >
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

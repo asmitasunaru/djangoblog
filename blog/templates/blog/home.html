@@ -9,7 +9,7 @@
 <div style="
     background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
                 url('{% static 'images/nepal.jpg' %}') center/cover no-repeat;
-    height:450px;
+    height:300px;
     border-radius:20px;
     margin:20px;
     display:flex;
@@ -19,42 +19,69 @@
     text-align:center;
     color:white;
     padding:20px;">
-    <h1 style="font-size:48px; margin:0;">Welcome to Nepal Blog 🇳🇵</h1>
-    <p style="font-size:20px;">Discover Nepal's beautiful places, culture, food and stories.</p>
+    <h1 style="font-size:42px; margin:0;">Welcome to Nepal Blog 🇳🇵</h1>
+    <p style="font-size:18px;">Discover Nepal's beautiful places, culture, food and stories.</p>
 
     <div style="margin-top:15px;">
         <a href="{% url 'post_list' %}"
            style="display:inline-block; padding:12px 25px; background:#d63384; color:white; text-decoration:none; border-radius:25px;">
             Explore Posts →
         </a>
-
+        {% if user.is_authenticated %}
         <a href="{% url 'post_create' %}"
            style="display:inline-block; padding:12px 25px; background:#198754; color:white; text-decoration:none; border-radius:25px; margin-left:10px;">
             + Create Post
         </a>
+        {% endif %}
     </div>
 </div>
 
-<div style="max-width:1100px; margin:30px auto; padding:20px;">
+<div class="container" style="max-width:1100px;">
+
+    <!-- Search -->
+    <form method="get" class="d-flex mb-4">
+        <input type="text" name="q" value="{{ query }}" class="form-control me-2" placeholder="Search posts...">
+        <button class="btn btn-outline-primary">Search</button>
+    </form>
+
+    <!-- Post cards -->
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if post.cover_image %}
+                    <img src="{{ post.cover_image.url }}" class="card-img-top" alt="{{ post.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="text-muted small">
+                        By {{ post.author|default:"Unknown" }} · {{ post.created_at|date:"M d, Y" }}
+                    </p>
+                    <p>{{ post.content|truncatechars:80 }}</p>
+                    <a href="{% url 'post_detail' post.slug %}" class="btn btn-primary btn-sm">Read more</a>
+                    {# Edit/Delete: urls.py हेरेपछि यहाँ थप्ने #}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No posts found.</p>
+        {% endfor %}
+    </div>
+
     <h2 style="color:#d63384;">Explore Nepal</h2>
-
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;">
-
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-bottom:30px;">
         <div style="background:white; padding:20px; border-radius:15px; box-shadow:0 4px 12px #ddd;">
             <h3>🏔️ Beautiful Places</h3>
             <p>Explore mountains, lakes and amazing places in Nepal.</p>
         </div>
-
         <div style="background:white; padding:20px; border-radius:15px; box-shadow:0 4px 12px #ddd;">
             <h3>🍛 Nepali Food</h3>
             <p>Discover dal bhat, momo and traditional Nepali food.</p>
         </div>
-
         <div style="background:white; padding:20px; border-radius:15px; box-shadow:0 4px 12px #ddd;">
             <h3>🎎 Culture & Festivals</h3>
             <p>Learn about Nepali culture, traditions and festivals.</p>
         </div>
-
     </div>
 </div>
 

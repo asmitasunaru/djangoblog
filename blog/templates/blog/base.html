@@ -2,16 +2,12 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Django Blog{% endblock %}</title>
-
+    <title>{% block title %}Nepal Blog{% endblock %}</title>
 
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -23,9 +19,7 @@
             color: #333;
         }
 
-
-        /* ===== Header ===== */
-
+        /* Header */
         header {
             background: linear-gradient(135deg, #667eea, #764ba2);
             padding: 22px 50px;
@@ -35,9 +29,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
-
-        /* ===== Logo ===== */
-
+        /* Logo */
         .logo {
             color: white;
             font-size: 28px;
@@ -45,9 +37,7 @@
             text-decoration: none;
         }
 
-
-        /* ===== Navigation ===== */
-
+        /* Navigation */
         nav {
             display: flex;
             gap: 10px;
@@ -67,17 +57,13 @@
             color: #667eea;
         }
 
-
-        /* ===== Main ===== */
-
+        /* Main */
         main {
             min-height: 80vh;
             padding: 20px;
         }
 
-
-        /* ===== Footer ===== */
-
+        /* Footer */
         footer {
             text-align: center;
             padding: 25px;
@@ -86,11 +72,8 @@
             color: white;
         }
 
-
-        /* ===== Mobile ===== */
-
+        /* Mobile */
         @media (max-width: 600px) {
-
             header {
                 flex-direction: column;
                 gap: 15px;
@@ -101,65 +84,39 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
-
     <!-- Header -->
-
     <header>
-
-        <a href="/" class="logo">
-            Django Blog
-        </a>
-
+     <a href="/" class="logo" style="display:flex; align-items:center; gap:12px;">
+    <img src="https://flagcdn.com/np.svg"
+         alt="Nepal Flag"
+         style="width:35px; height:48px; object-fit:contain;">
+    <span>Nepal Blog</span>
+</a>   
 
         <nav>
-
-            <a href="/">
-                Home
-            </a>
-
-            <a href="/about/">
-                About
-            </a>
-
-            <a href="/posts/">
-                Posts
-            </a>
-
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/posts/">Posts</a>
+            <a href="/contact/">Contact</a>
         </nav>
-
     </header>
 
-
     <!-- Main Content -->
-
     <main>
-
         {% block content %}
-
         {% endblock %}
-
     </main>
 
-
     <!-- Footer -->
-
     <footer>
-
-        <p>© 2026 Django Blog. All Rights Reserved.</p>
-
+        <p>© 2026 Nepal Blog. All Rights Reserved.</p>
     </footer>
 
-
 </body>
-
 </html>

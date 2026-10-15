@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
 
-{% block title %}Edit Project{% endblock %}
+{% block title %}Edit Post{% endblock %}
 
 {% block content %}
 
@@ -27,7 +27,7 @@
         font-weight: bold;
     }
 
-    input,
+    input[type="text"],
     textarea {
         width: 100%;
         padding: 12px;
@@ -41,6 +41,28 @@
         resize: vertical;
     }
 
+    .current-photo {
+        width: 100%;
+        max-width: 350px;
+        max-height: 230px;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .hint {
+        color: #888;
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
+    .error {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
     button {
         margin-top: 25px;
         padding: 12px 25px;
@@ -52,21 +74,28 @@
         cursor: pointer;
     }
 
+    .cancel {
+        display: inline-block;
+        margin-left: 12px;
+        color: #777;
+        text-decoration: none;
+    }
+
 </style>
 
 
 <div class="form-box">
 
-    <h1>Edit Project</h1>
+    <h1>Edit Post</h1>
 
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         {% csrf_token %}
 
 
         <label>
-            Project Title
+            Title
         </label>
 
         <input
@@ -78,7 +107,7 @@
 
 
         <label>
-            Project Description
+            Content
         </label>
 
         <textarea
@@ -87,9 +116,40 @@
         >{{ post.content }}</textarea>
 
 
+        <label>
+            Cover Image
+        </label>
+
+        {% if post.cover_image %}
+            <img
+                src="{{ post.cover_image.url }}"
+                alt="{{ post.title }}"
+                class="current-photo"
+            >
+            <div class="hint">Current photo. Choose a new file below to change it.</div>
+        {% endif %}
+
+        <input
+            type="file"
+            name="cover_image"
+            accept=".jpg,.jpeg,.png,.webp"
+            style="margin-top:10px;"
+        >
+
+        <div class="hint">JPG, PNG or WEBP, max 5MB. Leave empty to keep the current photo.</div>
+
+        {% for error in form.cover_image.errors %}
+            <div class="error">{{ error }}</div>
+        {% endfor %}
+
+
         <button type="submit">
             Save Changes
         </button>
+
+        <a href="{% url 'post_detail' post.pk %}" class="cancel">
+            Cancel
+        </a>
 
     </form>
 

@@ -4,43 +4,188 @@
 
 {% block content %}
 
-<h1>Post List</h1>
+<style>
 
-<a href="{% url 'post_create' %}">Create New Post</a>
+    .list-wrap {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 10px;
+    }
 
-<hr>
+    .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
 
-{% for post in posts %}
+    .list-header h1 {
+        margin: 0;
+        color: #667eea;
+    }
 
-<div style="margin-bottom: 30px;">
+    .create-btn {
+        display: inline-block;
+        padding: 11px 22px;
+        background: #198754;
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        transition: 0.3s;
+    }
 
-    <h2>{{ post.title }}</h2>
+    .create-btn:hover {
+        background: #146c43;
+    }
 
-    {% if post.cover_image %}
-        <img
-            src="{{ post.cover_image.url }}"
-            alt="{{ post.title }}"
-            style="
-                width: 300px;
-                max-height: 200px;
-                object-fit: cover;
-                border-radius: 10px;
-            "
-        >
+    /* ===== Card grid ===== */
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+    }
+
+    .card img,
+    .card .no-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .card .no-image {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+    }
+
+    .card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .card-body h2 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: #333;
+    }
+
+    .card-body p {
+        margin: 0 0 15px;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .card-date {
+        font-size: 13px;
+        color: #999;
+        margin-top: auto;
+        margin-bottom: 15px;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .card-actions a {
+        padding: 8px 16px;
+        border-radius: 20px;
+        text-decoration: none;
+        color: white;
+        font-size: 14px;
+    }
+
+    .btn-read   { background: #667eea; }
+    .btn-edit   { background: #f0ad4e; }
+    .btn-delete { background: #e74c3c; }
+
+    .empty {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 15px;
+        color: #777;
+    }
+
+</style>
+
+
+<div class="list-wrap">
+
+    <div class="list-header">
+        <h1>Post List</h1>
+        <a href="{% url 'post_create' %}" class="create-btn">+ Create New Post</a>
+    </div>
+
+    {% if posts %}
+
+    <div class="card-grid">
+
+        {% for post in posts %}
+
+        <div class="card">
+
+            {% if post.cover_image %}
+                <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+            {% else %}
+                <div class="no-image">📝</div>
+            {% endif %}
+
+            <div class="card-body">
+
+                <h2>{{ post.title }}</h2>
+
+                <p>{{ post.content|truncatechars:100 }}</p>
+
+                <div class="card-date">{{ post.created_at|date:"M d, Y" }}</div>
+
+                <div class="card-actions">
+                    <a href="{% url 'post_detail' post.pk %}" class="btn-read">Read</a>
+                    <a href="{% url 'post_edit' post.pk %}" class="btn-edit">Edit</a>
+                    <a href="{% url 'post_delete' post.pk %}" class="btn-delete">Delete</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+        <p>No posts yet.</p>
+    </div>
+
     {% endif %}
 
-    <p>{{ post.content }}</p>
-
-    <p>{{ post.created_at }}</p>
-
 </div>
-
-<hr>
-
-{% empty %}
-
-<p>No posts yet.</p>
-
-{% endfor %}
 
 {% endblock %}

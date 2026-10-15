@@ -17,7 +17,22 @@
 
     .detail h1 {
         color: #667eea;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+    }
+
+    .date {
+        color: #999;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .cover {
+        width: 100%;
+        max-height: 450px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        display: block;
     }
 
     .content {
@@ -56,6 +71,21 @@
     <h1>
         {{ post.title }}
     </h1>
+
+    <div class="date">
+        {{ post.created_at|date:"M d, Y" }}
+    </div>
+
+
+    <!-- Photo -->
+
+    {% if post.cover_image %}
+        <img
+            src="{{ post.cover_image.url }}"
+            alt="{{ post.title }}"
+            class="cover"
+        >
+    {% endif %}
 
 
     <div class="content">

@@ -15,43 +15,14 @@ urlpatterns = [
     path("dream/", views.dream, name="dream"),
     path("contact/", views.contact, name="contact"),
 
-    # =========================
+    # User Registration
+    path("register/", views.RegisterView.as_view(), name="register"),
+
     # CRUD
-    # =========================
-
-    # List
-    path(
-        "posts/",
-        views.post_list,
-        name="post_list"
-    ),
-
-    # Create
-    path(
-        "posts/create/",
-        views.post_create,
-        name="post_create"
-    ),
-
-    # Detail
-    path(
-        "posts/<int:pk>/",
-        views.post_detail,
-        name="post_detail"
-    ),
-
-    # Edit
-    path(
-        "posts/<int:pk>/edit/",
-        views.post_edit,
-        name="post_edit"
-    ),
-
-    # Delete
-    path(
-        "posts/<int:pk>/delete/",
-        views.post_delete,
-        name="post_delete"
-    ),
+    path("posts/", views.post_list, name="post_list"),
+    path("posts/create/", views.post_create, name="post_create"),
+    path("posts/<int:pk>/", views.post_detail, name="post_detail"),
+    path("posts/<int:pk>/edit/", views.post_edit, name="post_edit"),
+    path("posts/<int:pk>/delete/", views.post_delete, name="post_delete"),
 
 ]
